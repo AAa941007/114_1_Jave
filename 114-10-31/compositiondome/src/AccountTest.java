@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class AccountTest {
     public static void main(String[] args) {
         List<Account> customers = new ArrayList<>(); // 儲存客戶帳戶的List
-        Account acc1 = new Account("A001", "Alice", 5000);
+        Account acc1 = new Account("A001",, "Alice", 5000);
         addCustomer(customers, acc1);
-        Account acc2 = new Account("A002", "Bob", 3000);
+        Account acc2 = new Account("A002",, "Alie", 5000);
         addCustomer(customers, acc2);
-        Account acc3 = new Account("A003", "Charlie", -100);
+        Account acc3 = new Account("A003",, "Alce", 5000);
         addCustomer(customers,  acc3);
 
         operation(customers);
@@ -23,7 +23,7 @@ public class AccountTest {
         Account selectedAccount = null;
         while (true) {
             menu();
-            System.out.print("請選擇功能(1-5): ");
+            System.out.print("請選擇功能(1-7): ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // 清除換行符號
             switch (choice) {
@@ -54,6 +54,20 @@ public class AccountTest {
                     deleteCustomer(customers, deleteAccNum);
                     break;
                 case 5:
+                    System.out.print("輸入存款帳戶號碼: ");
+                    String depositAccNum = scanner.nextLine();
+                    System.out.print("輸入存款金額: ");
+                    double amount = scanner.nextDouble();
+                    depositToAccount(customers, depositAccNum, amount);
+                    break;
+                case 6:
+                    System.out.print("輸入提款帳戶號碼: ");
+                    String withdrawAccNum = scanner.nextLine();
+                    System.out.print("輸入提款金額: ");
+                    double withdrawAmount = scanner.nextDouble();
+                    withdrawFromAccount(customers, withdrawAccNum, withdrawAmount);
+                    break;
+                case 7:
                     System.out.println("離開系統，謝謝使用!");
                     return;
                 default:
@@ -94,23 +108,53 @@ public class AccountTest {
         }
     }
 
-    public static void printCustomerInfo(Account account) {
-        if (account == null) {
+    public static void printCustomerInfo(Account account)
+    {
+        if (account == null)
+        {
             System.out.println("無法列印帳戶資訊，帳戶不存在");
             return;
         }
-        System.out.println("帳戶號碼: " + account.getAccountNumber() +
-                ", 持有人: " + account.getOwnerName() +
-                ", 餘額: " + account.getBalance());
+        System.out.println(account.toString());
     }
 
-    // 功能選單 (1) 新增客戶 (2) 列印指定客戶帳戶資訊 (3) 顯示所有客戶帳戶資訊 (4) 刪除客戶帳戶 (5) 離開
+    public static void depositToAccount(List<Account> customers, String accountNumber, double amount) {
+        if (amount <= 0) {
+            System.out.println("存款金額必須大於0");
+            return;
+        }
+        Account account = customerInAction(customers, accountNumber);
+        if (account != null) {
+            account.deposit(amount);
+            System.out.println("存款成功，帳戶 " + accountNumber + " 的新餘額為: " + account.getBalance());
+        }
+    }
+
+    public static void withdrawFromAccount(List<Account> customers, String accountNumber, double amount) {
+        if (amount <= 0) {
+            System.out.println("提款金額必須大於0");
+            return;
+        }
+        Account account = customerInAction(customers, accountNumber);
+        if (account != null) {
+            if (account.getBalance() >= amount) {
+                account.withdraw(amount);
+                System.out.println("提款成功，帳戶 " + accountNumber + " 的新餘額為: " + account.getBalance());
+            } else {
+                System.out.println("餘額不足，無法完成提款");
+            }
+        }
+    }
+
+    // 功能選單 (1) 新增客戶 (2) 列印指定客戶帳戶資訊 (3) 顯示所有客戶帳戶資訊 (4) 刪除客戶帳戶 (5) 存款 (6) 提款 (7) 離開
     public static void menu() {
         System.out.println("功能選單:");
         System.out.println("1. 新增客戶");
         System.out.println("2. 列印指定客戶帳戶資訊");
         System.out.println("3. 顯示所有客戶帳戶資訊");
         System.out.println("4. 刪除客戶帳戶");
-        System.out.println("5. 離開");
+        System.out.println("5. 存款");
+        System.out.println("6. 提款");
+        System.out.println("7. 離開");
     }
 }
