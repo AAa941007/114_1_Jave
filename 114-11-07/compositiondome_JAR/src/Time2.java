@@ -1,7 +1,7 @@
 public class Time2 {
     private int hour; // 小時 0 - 23
     private int minute; // 分鐘 0 - 59
-    private int second; // 秒數 0 - 59
+    private int second; // 秒 0 - 59
 
     // Time2 無參數建構子：
     // 將每個實例變數初始化為零

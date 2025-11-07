@@ -1,6 +1,6 @@
 public class Person {
-    private  String name; // 姓名
-    private  String id; // 身分證或識別號
+    private  String name;
+    private  String id;
 
     public  Person(String name, String id) {
         this.name = name;

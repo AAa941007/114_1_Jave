@@ -5,23 +5,21 @@ public class Account {
 
     // 帳戶號碼，唯一識別每個帳戶
     private String accountNumber;
-    // 帳戶擁有者物件
+    // 帳戶擁有者名稱
+    //private String ownerName;
     private Person owner;
     // 帳戶餘額
     private double balance;
 
-    // 開戶日期與時間
     private Date openingDate;
     private Time2 openingTime;
-
     /**
-     * 建構子，初始化帳戶號碼、持有人與初始餘額
+     * 建構子，初始化帳戶號碼與初始餘額
      * @param accountNumber 帳戶號碼
-     * @param ownerID 持有人身分證或識別號
-     * @param ownerName 持有人名稱
      * @param initialBalance 初始餘額
      */
     public Account(String accountNumber, String ownerID, String ownerName, double initialBalance) {
+        LocalDateTime now = LocalDateTime.now();
         this.setAccountNumber(accountNumber);
         this.owner = new Person(ownerName, ownerID);
         try {
@@ -30,28 +28,21 @@ public class Account {
             System.out.println("初始餘額錯誤: " + e.getMessage() + "，將餘額設為0");
         }
         accountCount++; // 帳戶數量加1
-
-        // 設定開戶日期與時間
-        LocalDateTime now = LocalDateTime.now();
+        // 紀錄開戶日期與時間
         this.openingDate = new Date(now.getMonthValue(), now.getDayOfMonth(), now.getYear());
         this.openingTime = new Time2(now.getHour(), now.getMinute(), now.getSecond());
     }
 
-    // 新增 overload：接受 int 型別的初始餘額，避免呼叫端用 int 常數導致找不到建構子
-    public Account(String accountNumber, String ownerID, String ownerName, int initialBalance) {
-        this(accountNumber, ownerID, ownerName, (double) initialBalance);
-    }
-
     public Account(String accountNumber, double initialBalance) {
-        this(accountNumber, "未知ID", "未知", initialBalance);
+        this(accountNumber, "未知", "未知", initialBalance);
     }
 
     public Account() {
-        this("未知", "未知ID", "未知", 0);
+        this("未知", "未知", "未知", 0);
     }
 
     public Account(String accountNumber) {
-        this(accountNumber, "未知ID", "未知", 0);
+        this(accountNumber, "未知", "未知", 0);
     }
 
     /**
@@ -77,10 +68,6 @@ public class Account {
     public String getOwnerName() {
         return owner.getName();
     }
-
-    public Person getOwner() { return owner; }
-
-    public Time2 getOpeningTime() { return openingTime; }
 
     /**
      * 設定帳戶餘額
@@ -129,8 +116,16 @@ public class Account {
         }
     }
 
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
     public String toString() {
-        return String.format("帳戶號碼: %s, 持有人姓名: %s, 身分證: %s, 餘額: %.2f, 入戶時間: %s",
-                accountNumber, owner.getName(), owner.getId(), balance, openingTime == null ? "未知" : openingTime.toString());
+        return String.format("帳戶號碼: %s, 持有人: %s, 餘額: %.2f, 開戶日期: %s, 開戶時間: %s",
+                accountNumber, owner.toString(), balance, openingDate.toString(), openingTime.toString());
     }
 }

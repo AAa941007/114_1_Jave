@@ -1,31 +1,31 @@
 public class Date {
-    private int month; // 月份 1-12
-    private int day; // 日期 1-31（依月份）
-    private int year; // 年份（任意）
+    private int month; // 1-12
+    private int day; // 1-31 based on month
+    private int year; // any year
 
     private static final int[] daysPerMonth =
             {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    // 建構子：根據年份確認月份與日期的正確性
+    // constructor: confirm proper value for month and day given the year
     public Date(int month, int day, int year) {
-        // 檢查月份是否在範圍內
+        // check if month in range
         if (month <= 0 || month > 12) {
             throw new IllegalArgumentException(
-                    "月份 (" + month + ") 必須為 1-12");
+                    "month (" + month + ") must be 1-12");
         }
 
-        // 檢查日期是否在該月份的範圍內
+        // check if day in range for month
         if (day <= 0 ||
                 (day > daysPerMonth[month] && !(month == 2 && day == 29))) {
-            throw new IllegalArgumentException("日期 (" + day +
-                    ") 超出指定月份和年份的範圍");
+            throw new IllegalArgumentException("day (" + day +
+                    ") out-of-range for the specified month and year");
         }
 
-        // 若為 2 月 29 日，檢查是否為閏年
+        // check for leap year if month is 2 and day is 29
         if (month == 2 && day == 29 && !(year % 400 == 0 ||
                 (year % 4 == 0 && year % 100 != 0))) {
-            throw new IllegalArgumentException("日期 (" + day +
-                    ") 超出指定月份和年份的範圍");
+            throw new IllegalArgumentException("day (" + day +
+                    ") out-of-range for the specified month and year");
         }
 
         this.month = month;
@@ -35,7 +35,7 @@ public class Date {
         //System.out.printf("Date object constructor for date %s%n", this);
     }
 
-    // 回傳格式為 月/日/年 的字串
+    // return a String of the form month/day/year
     public String toString() {
         return String.format("%d/%d/%d", month, day, year);
     }
