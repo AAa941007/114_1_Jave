@@ -10,7 +10,9 @@
       <module fileurl="file://$PROJECT_DIR$/114-11-14/114-11-14.iml" filepath="$PROJECT_DIR$/114-11-14/114-11-14.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-21/114-11-21.iml" filepath="$PROJECT_DIR$/114-11-21/114-11-21.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-28/114-11-28.iml" filepath="$PROJECT_DIR$/114-11-28/114-11-28.iml" />
+      <module fileurl="file://$PROJECT_DIR$/114-12-05/114-12-05.iml" filepath="$PROJECT_DIR$/114-12-05/114-12-05.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/114_1_Jave.iml" filepath="$PROJECT_DIR$/.idea/114_1_Jave.iml" />
+      <module fileurl="file://$PROJECT_DIR$/114-12-05/Character/Character.iml" filepath="$PROJECT_DIR$/114-12-05/Character/Character.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-14/Inheritance01/Inheritance01.iml" filepath="$PROJECT_DIR$/114-11-14/Inheritance01/Inheritance01.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-07/Inheritance01-1/Inheritance01-1.iml" filepath="$PROJECT_DIR$/114-11-07/Inheritance01-1/Inheritance01-1.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-21/Inheritance04_abstract/Inheritance04_abstract.iml" filepath="$PROJECT_DIR$/114-11-21/Inheritance04_abstract/Inheritance04_abstract.iml" />
@@ -18,13 +20,13 @@
       <module fileurl="file://$PROJECT_DIR$/114-09-19/Review2-classbasic/Review2-classbasic.iml" filepath="$PROJECT_DIR$/114-09-19/Review2-classbasic/Review2-classbasic.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-28/Stage04/Stage04.iml" filepath="$PROJECT_DIR$/114-11-28/Stage04/Stage04.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-28/Stage3/Stage3.iml" filepath="$PROJECT_DIR$/114-11-28/Stage3/Stage3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/114-11-28/Stage4/Stage4.iml" filepath="$PROJECT_DIR$/114-11-28/Stage4/Stage4.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-10-31/compositiondome/Temp/Temp.iml" filepath="$PROJECT_DIR$/114-10-31/compositiondome/Temp/Temp.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-10-31/compositiondome/compositiondome.iml" filepath="$PROJECT_DIR$/114-10-31/compositiondome/compositiondome.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-07/compositiondome_JAR/compositiondome_JAR.iml" filepath="$PROJECT_DIR$/114-11-07/compositiondome_JAR/compositiondome_JAR.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-10-17/review 5/review 5.iml" filepath="$PROJECT_DIR$/114-10-17/review 5/review 5.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-10-17/review4/review4.iml" filepath="$PROJECT_DIR$/114-10-17/review4/review4.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-10-17/review 5/review5/review5.iml" filepath="$PROJECT_DIR$/114-10-17/review 5/review5/review5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/114-12-05/rpg.game/rpg.game.iml" filepath="$PROJECT_DIR$/114-12-05/rpg.game/rpg.game.iml" />
       <module fileurl="file://$PROJECT_DIR$/114-11-21/stage2/stage2.iml" filepath="$PROJECT_DIR$/114-11-21/stage2/stage2.iml" />
     </modules>
   </component>
