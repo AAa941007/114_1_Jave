@@ -15,7 +15,7 @@ public class HospitalSystemApp {
 
         boolean run = true;
         while (run) {
-            System.out.println("\n=== 醫院門診管理系統 v2.1 ===");
+            System.out.println("\n=== 醫院門診管理系統  ===");
             System.out.println("目前醫師人數: " + manager.getDoctors().size());
             System.out.println("目前病患人數: " + manager.getPatients().size());
             System.out.println("------------------------------------");
@@ -44,12 +44,12 @@ public class HospitalSystemApp {
                     case "7" -> manageHistory();
                     case "8" -> showDailyStats();
                     case "9" -> showClinicInfo();
-                    case "A" -> {
+                    case "10" -> {
                         manager.performBackup("hospital.dat");
                         System.out.println("💾 資料已備份，系統即將關閉。");
                         run = false;
                     }
-                    case "10" -> {
+                    case "A" -> {
                         try {
                             manager.exportAll("data");
                             java.io.File f1 = new java.io.File("data/patients.csv");
