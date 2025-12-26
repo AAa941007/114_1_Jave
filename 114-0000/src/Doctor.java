@@ -42,7 +42,15 @@ public class Doctor extends MedicalStaff {
     public void addSchedule(Schedule schedule) {
         this.schedules.add(schedule);
     }
-
+    public String toCsvRow() {
+        return String.join(",",
+                id,
+                name,
+                phone,
+                email,
+                specialty
+        );
+    }
     @Override
     public void displayInfo() {
         System.out.println("┌─────────────────────────────────────┐");

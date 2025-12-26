@@ -2,6 +2,8 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.io.IOException;
+
 
 public class HospitalSystemApp {
     private static final Scanner sc = new Scanner(System.in);
@@ -9,6 +11,7 @@ public class HospitalSystemApp {
 
     public static void main(String[] args) {
         initSampleData();   // 預設初始化多位醫師與病患
+        System.out.println("目前工作目錄: " + System.getProperty("user.dir"));
 
         boolean run = true;
         while (run) {
@@ -26,7 +29,8 @@ public class HospitalSystemApp {
             System.out.println("8. 每日統計");
             System.out.println("9. 顯示診所資訊");
             System.out.println("10. 儲存離開");
-            System.out.print("請選擇 (1-10): ");
+            System.out.println("11. 從檔案載入資料");
+            System.out.print("請選擇 (1-11): ");
 
             String op = sc.nextLine().trim();
             try {
@@ -40,11 +44,31 @@ public class HospitalSystemApp {
                     case "7" -> manageHistory();
                     case "8" -> showDailyStats();
                     case "9" -> showClinicInfo();
-                    case "10" -> {
+                    case "A" -> {
                         manager.performBackup("hospital.dat");
                         System.out.println("💾 資料已備份，系統即將關閉。");
                         run = false;
                     }
+                    case "10" -> {
+                        try {
+                            manager.exportAll("data");
+                            java.io.File f1 = new java.io.File("data/patients.csv");
+                            System.out.println("patients.csv 存在? " + f1.exists() + ", 大小: " + f1.length());
+                        } catch (IOException e) {
+                            System.out.println("🛑 匯出失敗: " + e.getMessage());
+                        }
+                        run = false;
+                    }
+                    case "11" -> {
+                        try {
+                            manager.importAll("data");
+                            System.out.println("✅ 已從 data 資料夾載入 CSV 資料。");
+                        } catch (IOException e) {
+                            System.out.println("🛑 匯入失敗: " + e.getMessage());
+                        }
+                    }
+
+
                     default -> System.out.println("❌ 無效選項，請重新輸入。");
                 }
             } catch (Exception e) {
@@ -56,6 +80,7 @@ public class HospitalSystemApp {
     // 預設建立幾位醫師與病患
     private static void initSampleData() {
         // 醫師 1
+
         Doctor dr1 = new Doctor("D01", "王大夫", "0911-000001",
                 "wang@hospital.com", "內科", "心臟手術");
         Schedule s1 = new Schedule(LocalDate.now());
@@ -181,8 +206,24 @@ public class HospitalSystemApp {
             System.out.println("目前沒有病患及預約紀錄。");
             return;
         }
-        manager.getPatients().forEach(p ->
-                p.getAppointments().forEach(Appointment::displayFullDetails));
+
+        System.out.println("================================");
+        System.out.println("📋 系統中所有預約紀錄");
+        System.out.println("================================");
+
+        int count = 0;
+        for (Patient p : manager.getPatients()) {
+            for (Appointment a : p.getAppointments()) {
+                a.displayFullDetails();   // 會印出你在 Regular / Emergency 裡設計的方框與內容
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("目前沒有任何預約紀錄。");
+        } else {
+            System.out.println("🔢 總預約數: " + count);
+        }
     }
 
     private static void cancelAppt() {

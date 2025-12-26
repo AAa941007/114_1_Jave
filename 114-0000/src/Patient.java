@@ -6,9 +6,14 @@ import java.util.List;
  * Patient - Concrete class representing a patient.
  * Manages appointments and a linked list of medical records for recursive searching.
  */
-public class Patient extends Person {
+public class Patient extends Person implements Serializable {
+
     private static final long serialVersionUID = 4L;
+
+    // 該病患擁有的預約清單
     private List<Appointment> appointments = new ArrayList<>();
+
+    // 醫療紀錄（採用單向 linked list）
     private MedicalRecordNode historyHead; // Head of the linked list for medical history
 
     public Patient(String id, String name, String phone, String email) {
@@ -16,8 +21,8 @@ public class Patient extends Person {
     }
 
     /**
-     * Validates if the patient has exceeded the maximum appointment limit.
-     * @throws IllegalStateException if the limit of 3 is reached. [cite: 576]
+     * 驗證病患是否超過可預約上限（例如 3 筆）
+     * 若超過則丟出 IllegalStateException。
      */
     public void validateAppointmentLimit() {
         if (appointments.size() >= 3) {
@@ -33,40 +38,56 @@ public class Patient extends Person {
         return appointments.removeIf(a -> a.getId().equals(appointmentId));
     }
 
+    /**
+     * 回傳一份預約清單的複本，避免外部直接改動內部 List。
+     */
     public List<Appointment> getAppointments() {
-        return new ArrayList<>(appointments); // Return a copy to prevent external modification
+        return new ArrayList<>(appointments);
     }
 
     /**
-     * Public method to initiate the recursive search for a diagnosis.
+     * 對外提供遞迴搜尋病歷診斷關鍵字的入口。
      */
     public boolean findDiagnosisRecursively(String keyword) {
         return searchRecursive(historyHead, keyword);
     }
 
     /**
-     * Private helper method that performs the actual recursion.
+     * 私有遞迴函式，實際走訪 linked list。
      */
     private boolean searchRecursive(MedicalRecordNode node, String keyword) {
-        // Base Case: If the list ends, the keyword was not found.
         if (node == null) {
             return false;
         }
-        // Check if the current node's diagnosis contains the keyword.
         if (node.diagnosis.toLowerCase().contains(keyword.toLowerCase())) {
             return true;
         }
-        // Recursive Step: Move to the next node in the list.
         return searchRecursive(node.next, keyword);
     }
 
+    /**
+     * 新增一筆病歷紀錄（插入到 linked list 的頭部）。
+     */
     public void addRecord(String diagnosis) {
-        // Prepend new records to the head of the list
         this.historyHead = new MedicalRecordNode(diagnosis, this.historyHead);
     }
 
     @Override
     public void displayInfo() {
-        System.out.println("👤 病患姓名：" + name + " (ID: " + id + ", 已預約數：" + appointments.size() + ")");
+        System.out.println("👤 病患姓名：" + name
+                + " (ID: " + id
+                + ", 已預約數：" + appointments.size() + ")");
+    }
+
+    /**
+     * 匯出病患基本資料到 CSV 的一行字串。
+     */
+    public String toCsvRow() {
+        return String.join(",",
+                id,
+                name,
+                phone,
+                email
+        );
     }
 }
