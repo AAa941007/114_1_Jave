@@ -3,13 +3,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
 import java.io.IOException;
-
+import java.io.File;
 
 public class HospitalSystemApp {
     private static final Scanner sc = new Scanner(System.in);
     private static final ClinicManager manager = new ClinicManager();
 
     public static void main(String[] args) {
+        // 檢查並建立 data 資料夾
+        File dataDir = new File("finalproject/data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+            System.out.println("📁 已自動建立 finalproject/data 資料夾於專案根目錄");
+        }
+
         initSampleData();   // 預設初始化多位醫師與病患
         System.out.println("目前工作目錄: " + System.getProperty("user.dir"));
 
@@ -51,8 +58,8 @@ public class HospitalSystemApp {
                     }
                     case "A" -> {
                         try {
-                            manager.exportAll("data");
-                            java.io.File f1 = new java.io.File("data/patients.csv");
+                            manager.exportAll("finalproject/data");
+                            java.io.File f1 = new java.io.File("finalproject/data/patients.csv");
                             System.out.println("patients.csv 存在? " + f1.exists() + ", 大小: " + f1.length());
                         } catch (IOException e) {
                             System.out.println("🛑 匯出失敗: " + e.getMessage());
@@ -61,14 +68,12 @@ public class HospitalSystemApp {
                     }
                     case "11" -> {
                         try {
-                            manager.importAll("data");
-                            System.out.println("✅ 已從 data 資料夾載入 CSV 資料。");
+                            manager.importAll("finalproject/data");
+                            System.out.println("✅ 已從 finalproject/data 資料夾載入 CSV 資料。");
                         } catch (IOException e) {
                             System.out.println("🛑 匯入失敗: " + e.getMessage());
                         }
                     }
-
-
                     default -> System.out.println("❌ 無效選項，請重新輸入。");
                 }
             } catch (Exception e) {
@@ -80,7 +85,6 @@ public class HospitalSystemApp {
     // 預設建立幾位醫師與病患
     private static void initSampleData() {
         // 醫師 1
-
         Doctor dr1 = new Doctor("D01", "王大夫", "0911-000001",
                 "wang@hospital.com", "內科", "心臟手術");
         Schedule s1 = new Schedule(LocalDate.now());

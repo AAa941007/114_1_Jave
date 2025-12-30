@@ -108,7 +108,7 @@ class ClinicManager implements Serializable {
     public void exportAll(String folderPath) throws IOException {
         File dir = new File(folderPath);
         if (!dir.exists()) {
-            dir.mkdirs();      // 如果沒有 data 資料夾，就自動建立
+            dir.mkdirs();      // 如果沒有資料夾，就自動建立
         }
 
         exportPatients(folderPath + "/patients.csv");
@@ -124,11 +124,10 @@ class ClinicManager implements Serializable {
     }
 
     // ==================== 匯入：病患 ====================
-
     private void importPatients(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
-            System.out.println("⚠️ 找不到病患檔案: " + path);
+            System.out.println("⚠️ 找不到病患檔案: " + file.getAbsolutePath());
             return;
         }
 
@@ -156,11 +155,10 @@ class ClinicManager implements Serializable {
     }
 
     // ==================== 匯入：醫師 ====================
-
     private void importDoctors(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
-            System.out.println("⚠️ 找不到醫師檔案: " + path);
+            System.out.println("⚠️ 找不到醫師檔案: " + file.getAbsolutePath());
             return;
         }
 
@@ -190,11 +188,10 @@ class ClinicManager implements Serializable {
     }
 
     // ==================== 匯入：預約 ====================
-
     private void importAppointments(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
-            System.out.println("⚠️ 找不到預約檔案: " + path);
+            System.out.println("⚠️ 找不到預約檔案: " + file.getAbsolutePath());
             return;
         }
 
@@ -240,7 +237,6 @@ class ClinicManager implements Serializable {
     }
 
     // ==================== 匯出：病患 ====================
-
     private void exportPatients(String path) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write("patientId,name,phone,email");
@@ -253,7 +249,6 @@ class ClinicManager implements Serializable {
     }
 
     // ==================== 匯出：醫師 ====================
-
     private void exportDoctors(String path) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write("doctorId,name,phone,email,specialty,skill");
@@ -266,7 +261,6 @@ class ClinicManager implements Serializable {
     }
 
     // ==================== 匯出：預約 ====================
-
     private void exportAppointments(String path) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write("apptId,patientId,doctorId,date,time,type");
